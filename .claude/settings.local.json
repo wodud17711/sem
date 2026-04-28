@@ -5,7 +5,11 @@
       "Skill(update-config:*)",
       "Bash(node -e \"const c=require\\('C:/Users/USER/claude-project/toolbox/.claude/settings.local.json'\\); console.log\\('OK allow=',c.permissions.allow.length,'deny=',c.permissions.deny.length\\)\")",
       "Bash(npm --version)",
-      "Bash(npx --yes create-next-app@latest . --typescript --tailwind --app --no-src-dir --import-alias \"@/*\" --eslint --use-npm --skip-install)"
+      "Bash(npx --yes create-next-app@latest . --typescript --tailwind --app --no-src-dir --import-alias \"@/*\" --eslint --use-npm --skip-install)",
+      "PowerShell(gh --version 2>&1)",
+      "PowerShell(git config user.name)",
+      "PowerShell(git config user.email)",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\", \"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\", \"User\"\\); gh --version 2>&1 | Select-Object -First 2)"
     ]
   }
 }
