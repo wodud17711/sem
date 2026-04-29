@@ -40,8 +40,8 @@ describe("markdownToHtml", () => {
   });
 
   it("정상 링크는 변환", () => {
-    const html = markdownToHtml("[셈](https://sem.kr)");
-    expect(html).toContain('href="https://sem.kr"');
+    const html = markdownToHtml("[셈](https://semcalc.com)");
+    expect(html).toContain('href="https://semcalc.com"');
     expect(html).toContain("rel=\"noopener noreferrer\"");
   });
 

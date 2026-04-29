@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
+import { site } from "@/lib/site";
 
-export const alt = "셈 - 계산기와 실용 도구 모음";
+export const alt = site.fullName;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -95,7 +96,7 @@ export default async function OpenGraphImage() {
           color: "#a1a1aa",
         }}
       >
-        sem.kr
+        {site.domain}
       </div>
     </div>,
     { ...size },

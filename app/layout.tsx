@@ -1,34 +1,35 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@/components/Analytics";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { site } from "@/lib/site";
 import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sem.kr";
 const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION;
 const naverVerification = process.env.NEXT_PUBLIC_NAVER_VERIFICATION;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(site.url),
   title: {
-    default: "셈 - 계산기와 실용 도구 모음",
+    default: site.fullName,
     template: "%s | 셈",
   },
   description:
     "연봉 실수령액, 퇴직금, 4대보험, 부동산 세금까지. 한국 직장인과 자영업자를 위한 실용 계산기 모음.",
-  applicationName: "셈",
+  applicationName: site.name,
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    siteName: "셈",
-    url: siteUrl,
+    siteName: site.name,
+    url: site.url,
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "셈 - 계산기와 실용 도구 모음",
+        alt: site.fullName,
       },
     ],
   },
@@ -58,10 +59,11 @@ export default function RootLayout({
   return (
     <html lang="ko" className="h-full antialiased">
       <body className="bg-background text-foreground min-h-full flex flex-col">
-        <Analytics />
+        <GoogleAnalytics />
         <Header />
         <div className="flex-1">{children}</div>
         <Footer />
+        <VercelAnalytics />
       </body>
     </html>
   );

@@ -30,7 +30,7 @@ function hello() {
 
 ## 링크
 
-자세한 내용은 [셈](https://sem.kr)에서 확인하세요.
+자세한 내용은 [셈](https://semcalc.com)에서 확인하세요.
 
 ---
 
