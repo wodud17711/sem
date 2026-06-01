@@ -125,6 +125,23 @@ export const tools: Tool[] = [
     rateBasis: "2026년 최저시급 10,320원 기준",
   },
   {
+    slug: "unemployment-benefit-calculator",
+    title: "실업급여 계산기",
+    description:
+      "월급·나이·고용보험 가입기간으로 구직급여 일액과 소정급여일수, 총 예상 수급액을 추산합니다.",
+    category: "finance",
+    keywords: [
+      "실업급여 계산기",
+      "구직급여 계산",
+      "실업급여 얼마",
+      "소정급여일수",
+      "실업급여 상한액",
+    ],
+    publishedAt: "2026-06-01",
+    updatedAt: "2026-06-01",
+    rateBasis: "2026년 기준",
+  },
+  {
     slug: "text-counter",
     title: "글자수 세기",
     description:

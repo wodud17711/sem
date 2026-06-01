@@ -61,6 +61,20 @@ export const PERSONAL_DEDUCTION_PER_HEAD = 1_500_000;
 export const LOCAL_INCOME_TAX_RATE = 0.1;
 
 /**
+ * 구직급여(실업급여) 기준 (2026년).
+ * - 지급률: 평균임금(급여기초일액)의 60%
+ * - 상한액: 1일 68,100원
+ * - 하한액: 1일 66,048원 (= 최저시급 10,320원 × 80% × 8시간)
+ *
+ * 상·하한액은 매년 변동하므로 갱신 시 함께 수정할 것.
+ */
+export const UNEMPLOYMENT = {
+  rate: 0.6,
+  dailyUpper: 68_100,
+  dailyLower: 66_048,
+} as const;
+
+/**
  * 종합소득세(근로소득) 누진세율 — 과세표준 기준.
  * 각 구간: 과세표준이 `upTo` 이하일 때 적용.
  * 산식: 산출세액 = baseTax + (과세표준 - threshold) × rate
