@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Header } from "@/components/layout/Header";
@@ -58,6 +59,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="h-full antialiased">
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6550769441333665"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className="bg-background text-foreground min-h-full flex flex-col">
         <GoogleAnalytics />
         <Header />
