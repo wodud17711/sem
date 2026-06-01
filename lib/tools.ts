@@ -108,6 +108,23 @@ export const tools: Tool[] = [
     rateBasis: "부가세율 10% (일반과세) 기준",
   },
   {
+    slug: "hourly-wage-calculator",
+    title: "시급·주휴수당 계산기",
+    description:
+      "시급과 근무시간으로 주휴수당·주급·월급을 계산합니다. 2026년 최저시급 10,320원 기준.",
+    category: "finance",
+    keywords: [
+      "주휴수당 계산기",
+      "시급 계산기",
+      "최저임금 계산기",
+      "2026 최저시급",
+      "알바 월급",
+    ],
+    publishedAt: "2026-06-01",
+    updatedAt: "2026-06-01",
+    rateBasis: "2026년 최저시급 10,320원 기준",
+  },
+  {
     slug: "text-counter",
     title: "글자수 세기",
     description:
