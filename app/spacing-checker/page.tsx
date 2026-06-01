@@ -75,16 +75,25 @@ export default function SpacingCheckerPage() {
           </p>
           <ul className="ml-5 list-disc space-y-2 text-foreground/90">
             <li>
-              <strong className="font-semibold text-foreground">의존명사 ‘수’</strong>{" "}
-              — 할수있다, 할수없다 → 할 수 있다, 할 수 없다
+              <strong className="font-semibold text-foreground">
+                의존명사 ‘것 · 수 · 줄 · 만큼 · 뿐’
+              </strong>{" "}
+              — 관형형 어미 뒤 띄어쓰기 (먹는것 → 먹는 것, 할줄알다 → 할 줄
+              알다, 먹을만큼 → 먹을 만큼)
             </li>
             <li>
-              <strong className="font-semibold text-foreground">의존명사 ‘것’</strong>{" "}
-              — 동사 어미 뒤에 붙은 경우 (할것이다, 본것입니다)
+              <strong className="font-semibold text-foreground">‘것 같다’</strong>{" "}
+              — 보조형용사 분리 (올것같다 → 올 것 같다)
             </li>
             <li>
-              <strong className="font-semibold text-foreground">‘수밖에’</strong>
-              {" "}— 명사 뒤 띄어쓰기
+              <strong className="font-semibold text-foreground">
+                보조용언 ‘있다 · 싶다 · 않다 · 못하다’
+              </strong>{" "}
+              — 먹고있다 → 먹고 있다, 보고싶다 → 보고 싶다, 하지않다 → 하지 않다
+            </li>
+            <li>
+              <strong className="font-semibold text-foreground">‘수밖에’</strong>{" "}
+              — 앞 띄어쓰기
             </li>
             <li>
               <strong className="font-semibold text-foreground">조사 ‘등’</strong>{" "}
