@@ -91,6 +91,23 @@ export const tools: Tool[] = [
     rateBasis: "2026년 4월 기준",
   },
   {
+    slug: "vat-calculator",
+    title: "부가가치세 계산기",
+    description:
+      "공급가액에서 부가세·합계를, 합계에서 공급가액·부가세를 양방향으로 계산합니다 (10% 기준).",
+    category: "finance",
+    keywords: [
+      "부가가치세 계산기",
+      "부가세 계산기",
+      "VAT 계산",
+      "공급가액 계산",
+      "부가세 별도",
+    ],
+    publishedAt: "2026-06-01",
+    updatedAt: "2026-06-01",
+    rateBasis: "부가세율 10% (일반과세) 기준",
+  },
+  {
     slug: "text-counter",
     title: "글자수 세기",
     description:
@@ -171,6 +188,21 @@ export const tools: Tool[] = [
     updatedAt: "2026-04-29",
   },
   {
+    slug: "percent-calculator",
+    title: "퍼센트 계산기",
+    description:
+      "비율, 퍼센트 값, 증감률을 한 번에 계산합니다. A는 B의 몇 %인지 즉시 확인하세요.",
+    category: "lifestyle",
+    keywords: [
+      "퍼센트 계산기",
+      "백분율 계산기",
+      "비율 계산",
+      "증감률 계산",
+    ],
+    publishedAt: "2026-06-01",
+    updatedAt: "2026-06-01",
+  },
+  {
     slug: "unit-converter",
     title: "단위 변환기",
     description:
@@ -200,6 +232,21 @@ export const tools: Tool[] = [
     keywords: ["색상 코드 변환", "HEX RGB", "HSL 변환"],
     publishedAt: "2026-04-29",
     updatedAt: "2026-04-29",
+  },
+  {
+    slug: "pyeong-converter",
+    title: "평수 변환기",
+    description:
+      "제곱미터(㎡)와 평을 양방향으로 변환합니다. 아파트 전용면적 ㎡를 평으로 바로 환산하세요.",
+    category: "converter",
+    keywords: [
+      "평수 변환기",
+      "평 제곱미터 변환",
+      "㎡ 평 계산",
+      "전용면적 평수",
+    ],
+    publishedAt: "2026-06-01",
+    updatedAt: "2026-06-01",
   },
   {
     slug: "loan-interest",
