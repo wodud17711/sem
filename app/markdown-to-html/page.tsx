@@ -108,7 +108,7 @@ export default function MarkdownToHtmlPage() {
                 <tr className="border-t border-border">
                   <td className="px-4 py-3">링크</td>
                   <td className="px-4 py-3">[셈](https://semcalc.com)</td>
-                  <td className="px-4 py-3">&lt;a href="..."&gt;셈&lt;/a&gt;</td>
+                  <td className="px-4 py-3">&lt;a href=&quot;...&quot;&gt;셈&lt;/a&gt;</td>
                 </tr>
                 <tr className="border-t border-border">
                   <td className="px-4 py-3">인라인 코드</td>

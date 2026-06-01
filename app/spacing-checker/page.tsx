@@ -75,19 +75,19 @@ export default function SpacingCheckerPage() {
           </p>
           <ul className="ml-5 list-disc space-y-2 text-foreground/90">
             <li>
-              <strong className="font-semibold text-foreground">의존명사 '수'</strong>{" "}
+              <strong className="font-semibold text-foreground">의존명사 ‘수’</strong>{" "}
               — 할수있다, 할수없다 → 할 수 있다, 할 수 없다
             </li>
             <li>
-              <strong className="font-semibold text-foreground">의존명사 '것'</strong>{" "}
+              <strong className="font-semibold text-foreground">의존명사 ‘것’</strong>{" "}
               — 동사 어미 뒤에 붙은 경우 (할것이다, 본것입니다)
             </li>
             <li>
-              <strong className="font-semibold text-foreground">'수밖에'</strong>
+              <strong className="font-semibold text-foreground">‘수밖에’</strong>
               {" "}— 명사 뒤 띄어쓰기
             </li>
             <li>
-              <strong className="font-semibold text-foreground">조사 '등'</strong>{" "}
+              <strong className="font-semibold text-foreground">조사 ‘등’</strong>{" "}
               — 등이/등의/등을 앞 띄어쓰기
             </li>
             <li>
@@ -96,7 +96,7 @@ export default function SpacingCheckerPage() {
             </li>
           </ul>
           <p className="text-sm text-muted-foreground">
-            "이것은", "그것은" 같은 대명사는 한 단어로 인정되어 분리되지 않습니다.
+            “이것은”, “그것은” 같은 대명사는 한 단어로 인정되어 분리되지 않습니다.
           </p>
         </ToolSection>
 

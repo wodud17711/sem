@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import {
   hexToRgb,
@@ -8,6 +8,9 @@ import {
   rgbToHex,
   rgbToHsl,
 } from "@/lib/calculators/color";
+
+const clamp = (value: string, max: number) =>
+  Math.min(max, Math.max(0, parseInt(value, 10) || 0));
 
 export function Calculator() {
   const [hex, setHex] = useState("#3366cc");
@@ -17,39 +20,32 @@ export function Calculator() {
   const [h, setH] = useState(220);
   const [s, setS] = useState(60);
   const [l, setL] = useState(50);
-  const [editing, setEditing] = useState<"hex" | "rgb" | "hsl">("hex");
 
-  useEffect(() => {
-    if (editing !== "hex") return;
-    const rgb = hexToRgb(hex);
-    if (!rgb) return;
+  // 한 표현이 바뀌면 나머지 표현을 즉시 맞춘다 (effect 없이 핸들러에서 직접 동기화).
+  function syncFromRgb(rgb: { r: number; g: number; b: number }) {
     setR(rgb.r);
     setG(rgb.g);
     setB(rgb.b);
-    const hsl = rgbToHsl(rgb);
-    setH(hsl.h);
-    setS(hsl.s);
-    setL(hsl.l);
-  }, [hex, editing]);
-
-  useEffect(() => {
-    if (editing !== "rgb") return;
-    const rgb = { r, g, b };
     setHex(rgbToHex(rgb));
     const hsl = rgbToHsl(rgb);
     setH(hsl.h);
     setS(hsl.s);
     setL(hsl.l);
-  }, [r, g, b, editing]);
+  }
 
-  useEffect(() => {
-    if (editing !== "hsl") return;
-    const rgb = hslToRgb({ h, s, l });
-    setR(rgb.r);
-    setG(rgb.g);
-    setB(rgb.b);
-    setHex(rgbToHex(rgb));
-  }, [h, s, l, editing]);
+  function handleHexChange(value: string) {
+    const next = value.startsWith("#") ? value : `#${value}`;
+    setHex(next);
+    const rgb = hexToRgb(next);
+    if (rgb) syncFromRgb(rgb);
+  }
+
+  function handleHslChange(next: { h: number; s: number; l: number }) {
+    setH(next.h);
+    setS(next.s);
+    setL(next.l);
+    syncFromRgb(hslToRgb(next));
+  }
 
   return (
     <section
@@ -77,12 +73,7 @@ export function Calculator() {
             <Input
               type="text"
               value={hex}
-              onFocus={() => setEditing("hex")}
-              onChange={(e) => {
-                let val = e.target.value;
-                if (!val.startsWith("#")) val = `#${val}`;
-                setHex(val);
-              }}
+              onChange={(e) => handleHexChange(e.target.value)}
               className="mt-2 font-mono"
             />
           </div>
@@ -97,9 +88,8 @@ export function Calculator() {
                 min={0}
                 max={255}
                 value={r}
-                onFocus={() => setEditing("rgb")}
                 onChange={(e) =>
-                  setR(Math.min(255, Math.max(0, parseInt(e.target.value, 10) || 0)))
+                  syncFromRgb({ r: clamp(e.target.value, 255), g, b })
                 }
                 aria-label="빨강 (R)"
               />
@@ -108,9 +98,8 @@ export function Calculator() {
                 min={0}
                 max={255}
                 value={g}
-                onFocus={() => setEditing("rgb")}
                 onChange={(e) =>
-                  setG(Math.min(255, Math.max(0, parseInt(e.target.value, 10) || 0)))
+                  syncFromRgb({ r, g: clamp(e.target.value, 255), b })
                 }
                 aria-label="초록 (G)"
               />
@@ -119,9 +108,8 @@ export function Calculator() {
                 min={0}
                 max={255}
                 value={b}
-                onFocus={() => setEditing("rgb")}
                 onChange={(e) =>
-                  setB(Math.min(255, Math.max(0, parseInt(e.target.value, 10) || 0)))
+                  syncFromRgb({ r, g, b: clamp(e.target.value, 255) })
                 }
                 aria-label="파랑 (B)"
               />
@@ -141,9 +129,8 @@ export function Calculator() {
                 min={0}
                 max={360}
                 value={h}
-                onFocus={() => setEditing("hsl")}
                 onChange={(e) =>
-                  setH(Math.min(360, Math.max(0, parseInt(e.target.value, 10) || 0)))
+                  handleHslChange({ h: clamp(e.target.value, 360), s, l })
                 }
                 aria-label="색상 (H)"
               />
@@ -152,9 +139,8 @@ export function Calculator() {
                 min={0}
                 max={100}
                 value={s}
-                onFocus={() => setEditing("hsl")}
                 onChange={(e) =>
-                  setS(Math.min(100, Math.max(0, parseInt(e.target.value, 10) || 0)))
+                  handleHslChange({ h, s: clamp(e.target.value, 100), l })
                 }
                 aria-label="채도 (S)"
               />
@@ -163,9 +149,8 @@ export function Calculator() {
                 min={0}
                 max={100}
                 value={l}
-                onFocus={() => setEditing("hsl")}
                 onChange={(e) =>
-                  setL(Math.min(100, Math.max(0, parseInt(e.target.value, 10) || 0)))
+                  handleHslChange({ h, s, l: clamp(e.target.value, 100) })
                 }
                 aria-label="밝기 (L)"
               />

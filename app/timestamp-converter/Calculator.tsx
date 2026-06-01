@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 
@@ -29,30 +29,35 @@ function parseLocal(input: string): Date | null {
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
+type Field = "unixSec" | "unixMs" | "iso" | "local";
+
 export function Calculator() {
   const [date, setDate] = useState<Date>(() => new Date());
-  const [unixSecText, setUnixSecText] = useState("");
-  const [unixMsText, setUnixMsText] = useState("");
-  const [isoText, setIsoText] = useState("");
-  const [localText, setLocalText] = useState("");
-  const [editingField, setEditingField] = useState<string | null>(null);
+  const [unixSecText, setUnixSecText] = useState(() =>
+    String(Math.floor(date.getTime() / 1000)),
+  );
+  const [unixMsText, setUnixMsText] = useState(() => String(date.getTime()));
+  const [isoText, setIsoText] = useState(() => date.toISOString());
+  const [localText, setLocalText] = useState(() => formatKoreanLocal(date));
 
-  useEffect(() => {
-    if (editingField === "unixSec") return;
-    setUnixSecText(String(Math.floor(date.getTime() / 1000)));
-  }, [date, editingField]);
-  useEffect(() => {
-    if (editingField === "unixMs") return;
-    setUnixMsText(String(date.getTime()));
-  }, [date, editingField]);
-  useEffect(() => {
-    if (editingField === "iso") return;
-    setIsoText(date.toISOString());
-  }, [date, editingField]);
-  useEffect(() => {
-    if (editingField === "local") return;
-    setLocalText(formatKoreanLocal(date));
-  }, [date, editingField]);
+  // date가 바뀌면 입력 중인 필드를 제외한 나머지 표현을 맞춘다
+  // (effect 없이 핸들러에서 직접 동기화).
+  function sync(d: Date, except: Field) {
+    setDate(d);
+    if (except !== "unixSec") setUnixSecText(String(Math.floor(d.getTime() / 1000)));
+    if (except !== "unixMs") setUnixMsText(String(d.getTime()));
+    if (except !== "iso") setIsoText(d.toISOString());
+    if (except !== "local") setLocalText(formatKoreanLocal(d));
+  }
+
+  function setNow() {
+    const d = new Date();
+    setDate(d);
+    setUnixSecText(String(Math.floor(d.getTime() / 1000)));
+    setUnixMsText(String(d.getTime()));
+    setIsoText(d.toISOString());
+    setLocalText(formatKoreanLocal(d));
+  }
 
   const readable = useMemo(() => formatKoreanReadable(date), [date]);
   const utcReadable = useMemo(
@@ -73,7 +78,7 @@ export function Calculator() {
           type="button"
           variant="secondary"
           size="sm"
-          onClick={() => setDate(new Date())}
+          onClick={setNow}
         >
           현재 시각
         </Button>
@@ -93,12 +98,10 @@ export function Calculator() {
             type="text"
             inputMode="numeric"
             value={unixSecText}
-            onFocus={() => setEditingField("unixSec")}
-            onBlur={() => setEditingField(null)}
             onChange={(e) => {
               setUnixSecText(e.target.value);
               const n = parseInt(e.target.value, 10);
-              if (Number.isFinite(n)) setDate(new Date(n * 1000));
+              if (Number.isFinite(n)) sync(new Date(n * 1000), "unixSec");
             }}
             className="mt-2 font-mono"
           />
@@ -115,12 +118,10 @@ export function Calculator() {
             type="text"
             inputMode="numeric"
             value={unixMsText}
-            onFocus={() => setEditingField("unixMs")}
-            onBlur={() => setEditingField(null)}
             onChange={(e) => {
               setUnixMsText(e.target.value);
               const n = parseInt(e.target.value, 10);
-              if (Number.isFinite(n)) setDate(new Date(n));
+              if (Number.isFinite(n)) sync(new Date(n), "unixMs");
             }}
             className="mt-2 font-mono"
           />
@@ -136,12 +137,10 @@ export function Calculator() {
             id="iso"
             type="text"
             value={isoText}
-            onFocus={() => setEditingField("iso")}
-            onBlur={() => setEditingField(null)}
             onChange={(e) => {
               setIsoText(e.target.value);
               const d = new Date(e.target.value);
-              if (!Number.isNaN(d.getTime())) setDate(d);
+              if (!Number.isNaN(d.getTime())) sync(d, "iso");
             }}
             className="mt-2 font-mono"
           />
@@ -157,12 +156,10 @@ export function Calculator() {
             id="local"
             type="text"
             value={localText}
-            onFocus={() => setEditingField("local")}
-            onBlur={() => setEditingField(null)}
             onChange={(e) => {
               setLocalText(e.target.value);
               const d = parseLocal(e.target.value);
-              if (d) setDate(d);
+              if (d) sync(d, "local");
             }}
             placeholder="YYYY-MM-DD HH:mm:ss"
             className="mt-2 font-mono"
